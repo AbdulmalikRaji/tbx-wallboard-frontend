@@ -153,7 +153,7 @@ const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products }) => {
                     <span className="text-sky-700 font-bold col-span-2">
                       {key}
                     </span>
-                    <span className="font-bold col-span-1">{value}</span>
+                    <span className="font-bold col-span-1 pl-6">{value}</span>
                     <span className="col-span-1">{percentage}%</span>
                   </div>
                 </div>
