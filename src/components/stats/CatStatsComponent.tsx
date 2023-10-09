@@ -141,7 +141,7 @@ const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products }) => {
             return (
               <div
                 key={key}
-                className=" pl-2 pr-4 my-2 rounded-xl w-full relative overflow-hidden cursor-pointer"
+                className=" pl-2 pr-4 mt-2 rounded-xl w-full relative overflow-hidden cursor-pointer"
                 onClick={() => handleCatClick(key)}
               >
                 <div
