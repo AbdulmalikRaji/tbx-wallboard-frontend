@@ -141,14 +141,14 @@ const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products }) => {
             return (
               <div
                 key={key}
-                className="py-2 px-6 my-3 rounded-xl w-full  relative mb-1 overflow-hidden cursor-pointer"
+                className=" pl-2 pr-4 my-2 rounded-xl w-full relative overflow-hidden cursor-pointer"
                 onClick={() => handleCatClick(key)}
               >
                 <div
                   className="w-full h-full absolute top-0 left-0 bg-sky-600 opacity-25"
                   style={{ width: `${percentage}%` }}
                 ></div>
-                <div className="text-black absolute top-0 left-0 w-full h-full flex items-center justify-between px-2">
+                <div className="text-black relative top-0 left-0 w-full h-full flex items-center justify-between ">
                   <div className="grid grid-cols-3 w-full">
                     <span className="text-sky-700 font-bold col-span-2">
                       {key}
