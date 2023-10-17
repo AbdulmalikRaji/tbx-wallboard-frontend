@@ -32,7 +32,8 @@ export const filterExpiredPins=(pins:Pin[],dispatch :Dispatch)=>{
 export const updateProducts = (product: Product,pins:Pin[],dispatch :Dispatch) => {
   try{
     dispatch(increaseCount())
-    const newProduct: Product = { ...product, id: uuidv4() };
+    const currentTime = new Date()
+    const newProduct: Product = { ...product, id: uuidv4(), acqTimestamp: currentTime};
     dispatch(addProduct(newProduct));
 
     const { id,Barcode,ProductName,Category, Location } = newProduct;

@@ -6,6 +6,7 @@ export interface Product {
     Category: string;
     ImageUrl: string;
     Location: [number, number];
-    timestamp?: Date; 
+    timestamp?: Date;
+    acqTimestamp?: Date;
 }
 
