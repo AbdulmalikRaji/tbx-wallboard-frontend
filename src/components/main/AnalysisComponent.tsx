@@ -5,23 +5,30 @@ import { selectTotalCountAnalysis } from "@/store/totalCountAnalysisSlice";
 import { selectUniqueCategoryCount } from "@/store/catCountSlice";
 import { Analysis } from "@/interfaces/analysis_interface";
 
-const AnalysisComponent: React.FC= () => {
+interface AnalysisComponentProps {
+  productCounts: Analysis[]; // Define the prop here
+}
+
+const AnalysisComponent: React.FC<AnalysisComponentProps> = ({ productCounts }) => {
   try {
-    const totalCountAnalysisSelect = useSelector(selectTotalCountAnalysis)
+    const totalCountAnalysisSelect = useSelector(selectTotalCountAnalysis);
     const uniqueCategoryCount = useSelector(selectUniqueCategoryCount);
-    const categoryCount: Analysis = { Title: "Total Category Count", Value: uniqueCategoryCount.toString() } 
+    const categoryCount: Analysis = { Title: "Total Category Count", Value: uniqueCategoryCount.toString() };
     return (
       <div className="flex justify-center gap-4">
-        <div className="w-full">
+        {productCounts.map(analysis => (<div className="w-full">
+          <AnalysisCardComponent analysis={analysis} />
+        </div>))}
+        {/* <div className="w-full">
           <AnalysisCardComponent analysis={totalCountAnalysisSelect} />
         </div>
         <div className="w-full">
           <AnalysisCardComponent analysis={categoryCount} />
-        </div>
+        </div> */}
       </div>
     );
   } catch (err) {
-    console.error("Analysis Component Error:", err)
+    console.error("Analysis Component Error:", err);
   }
 };
 

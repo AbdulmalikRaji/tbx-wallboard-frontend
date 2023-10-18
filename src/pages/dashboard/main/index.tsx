@@ -7,7 +7,7 @@ import { socket } from "@/config/socket";
 import { addProduct, selectProducts } from "@/store/productSlice";
 import { addPin, removePin, selectPins } from "@/store/pinSlice";
 import { addLongPin } from "@/store/pinSlice";
-
+import { Analysis } from "@/interfaces/analysis_interface";
 import Layout from "../layout";
 import { Product } from "@/interfaces/product_interface";
 import { Pin } from "@/interfaces/pin_interface";
@@ -17,6 +17,7 @@ import {
   updateProducts,
 } from "@/services/updateProductsService";
 import { updateStats } from "@/services/updateStatsService";
+import { title } from "process";
 const MapComponent = dynamic(() => import("@/components/main/MapComponent"), {
   ssr: false,
 });
@@ -30,7 +31,7 @@ const MainDashboard: React.FC = () => {
   const products = useSelector(selectProducts);
   const pins = useSelector(selectPins);
 
-  const [productCount, setProductCount] = useState<number>(0);
+  const [productCounts, setProductCounts] = useState<Analysis[]>([{Title: 'Products Sent Last Hour', Value: '0'}, {Title: 'Products Sent Last 24 Hours', Value: '0'}],);
   const [uniqueLocations, setUniqueLocations] = useState<number>(0);
   const [showTable, setShowTable] = useState<boolean>(true);
   const [mapPins, setMapPins] = useState<Pin[]>([]);
@@ -98,6 +99,14 @@ const MainDashboard: React.FC = () => {
       updateStats(product, dispatch);
       updateProducts(product, pins, dispatch);
     });
+    socket.on('productCounts', (counts) => {
+      const productCountsArray: Analysis[] = [
+        { Title: 'Products Sent Last Hour', Value: counts.productsSentLastHour.toString() },
+        { Title: 'Products Sent Last 24 Hours', Value: counts.productsSentLast24Hours.toString() },
+      ];
+      console.log(productCountsArray)
+      setProductCounts(productCountsArray);
+    });
 
     return () => {
       socket.off("products", updateProducts);
@@ -139,7 +148,7 @@ const MainDashboard: React.FC = () => {
             }`}
           >
             <div className="m-4">
-              <AnalysisComponent />
+              <AnalysisComponent productCounts={productCounts}/>
             </div>
             <div className="bg-gray-50 rounded-lg p-4 overflow-hidden m-2 drop-shadow-md">
               <h2 className="text-gray-700 mb-2 font-bold text-lg">

@@ -15,6 +15,7 @@ import {v4 as uuidv4} from 'uuid';
 import { filterExpiredPins, updateProducts} from "@/services/updateProductsService";
 import { updateStats } from "@/services/updateStatsService";
 import TotalCatStatComponent from "@/components/stats/TotalCatStatComponent";
+import { Analysis } from "@/interfaces/analysis_interface";
 const MapComponent = dynamic(() => import('@/components/stats/MapComponent'), {
   ssr: false,
 });
@@ -27,6 +28,8 @@ const StatsDashboard: React.FC = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
   const pins = useSelector(selectLongPins);
+  const [catCounts, setCatCounts] = useState<Analysis[]>([{Title: 'Unique categories in the Last Hour', Value: '0'}, {Title: 'Unique categories in the Last 24 Hours', Value: '0'}],);
+
 
 
   useEffect(() => {
@@ -34,6 +37,15 @@ const StatsDashboard: React.FC = () => {
     socket.on("products", (product)=> {
       updateStats(product,dispatch)
       updateProducts(product,pins,dispatch)
+    });
+
+    socket.on('catCounts', (counts) => {
+      const catCountsArray: Analysis[] = [
+        { Title: 'Unique Categories in the last Hour', Value: counts.uniqueCatsLastHour.toString() },
+        { Title: 'Unique Categories in the last 24 Hours', Value: counts.uniqueCatsLast24Hours.toString() },
+      ];
+      console.log(catCountsArray)
+      setCatCounts(catCountsArray);
     });
 
     return () => {
@@ -51,7 +63,7 @@ const StatsDashboard: React.FC = () => {
     <Layout>
         <div className="h-screen mx-auto ">
         <div className=" bg-slate-100">
-        <TotalCatStatComponent/>
+        <TotalCatStatComponent catCounts={catCounts}/>
           <div className="h-max flex flex-col sm:flex-row bg-slate-100">
             <div className="bg-gray-50 drop-shadow-lg sm:w-1/4 p-4 rounded-xl my-4 mx-2">
               <SidebarComponent products={products}/>

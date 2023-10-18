@@ -3,8 +3,13 @@ import { selectFilterState, setFilterState} from "@/store/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTotalCountAnalysis } from "@/store/totalCountAnalysisSlice";
 import { selectCatCount, selectTotalCatCount, selectUniqueCategoryCount } from "@/store/catCountSlice";
+import { Analysis } from "@/interfaces/analysis_interface";
 
-const TotalCatStatComponent: React.FC = () => {
+interface TotalCatStatComponentProps {
+  catCounts: Analysis[]; 
+}
+
+const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts}) => {
     try {
         const catCount = useSelector(selectCatCount)
         const totalCatCount = useSelector(selectTotalCatCount)
@@ -46,12 +51,15 @@ const TotalCatStatComponent: React.FC = () => {
             <div className="mx-4"> 
               <h2 className="text-gray-700 font-bold text-xl">General Statistics</h2>
               <div className="flex flex-row space-x-4">
-                <div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
+                {catCounts.map(cat => (<div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
+                  <p className="text-gray-700 font-bold">{cat.Title}: {cat.Value}</p>
+                </div>))}
+                {/* <div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
                   <p className="text-gray-700 font-bold">Total number of products: {totalCountAnalysisSelect.Value}</p>
                 </div>
                 <div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
                   <p className="text-gray-700 font-bold">Total number of categories: {uniqueCategoryCount}</p>
-                </div>
+                </div> */}
                 <div className="relative w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md overflow-hidden">
                   <p className="text-gray-700 font-bold">Total % of filtered categories {totalFilteredPercentage}</p>
                   <div
