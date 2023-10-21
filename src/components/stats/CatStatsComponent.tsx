@@ -9,15 +9,16 @@ import { selectCatCount, selectTotalCatCount } from "@/store/catCountSlice";
 
 interface CatStatsComponentProps {
   products: Array<Product>;
+  categories: CategoryCounts;  
 }
 
-const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products }) => {
+const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products , categories}) => {
   try {
     const filterState = useSelector(selectFilterState);
     const [catCounter, setCatCounter] = useState<CategoryCounts>({});
     const [totalCount, setTotalCount] = useState<number>(0);
-    const catCount = useSelector(selectCatCount);
-    const totalCatCount = useSelector(selectTotalCatCount);
+    const catCount = categories
+    const totalCatCount = Object.values(categories).reduce((sum, count) => sum + count, 0);
     const dispatch = useDispatch();
     const [totalFilterdCatCount, setTotalFilterdCatCount] = useState<number>(0);
     const [totalUnfilterdCatCount, setTotalUnfilterdCatCount] =

@@ -4,15 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectTotalCountAnalysis } from "@/store/totalCountAnalysisSlice";
 import { selectCatCount, selectTotalCatCount, selectUniqueCategoryCount } from "@/store/catCountSlice";
 import { Analysis } from "@/interfaces/analysis_interface";
+import { CategoryCounts } from "@/interfaces/cat_count_interface";
 
 interface TotalCatStatComponentProps {
-  catCounts: Analysis[]; 
+  catCounts: Analysis[];
+  categories: CategoryCounts; 
 }
 
-const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts}) => {
+const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts, categories}) => {
     try {
-        const catCount = useSelector(selectCatCount)
-        const totalCatCount = useSelector(selectTotalCatCount)
+        const catCount = categories
+        console.log(categories)
+        const totalCatCount = Object.values(categories).reduce((sum, count) => sum + count, 0);
+        //console.log(totalCatCount)
         const totalCountAnalysisSelect = useSelector(selectTotalCountAnalysis)
         const uniqueCategoryCount = useSelector(selectUniqueCategoryCount);
         const filterState = useSelector(selectFilterState);
@@ -22,10 +26,12 @@ const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts}
         Object.entries(catCount).forEach(([key, value]) => {
             try {
               var isFiltered
+              
               if (filterState === undefined) {
                    isFiltered = false;
               }else {
                   isFiltered = filterState.length !== 0 && filterState.includes(key);
+                  console.log(isFiltered)
               }
               if (isFiltered) {
                 filteredCategories.push([key, value]);

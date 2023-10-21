@@ -11,7 +11,7 @@ import { totalCountAnalysisSlice } from "./totalCountAnalysisSlice";
 import { catCountSlice } from "./catCountSlice";
 
 const persistConfig = {
-  key: "root7",
+  key: "root5",
   storage,
 };
 

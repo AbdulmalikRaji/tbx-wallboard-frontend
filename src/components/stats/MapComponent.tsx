@@ -88,7 +88,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
                 />
     
                 {filteredPins?.map((pin, index) => {
-                    console.log(pin.DotColor)
                     const dotIcon = L.divIcon({
                         className: "dot-marker-red",
                         iconSize: [8, 8], // Adjust the size of the dot

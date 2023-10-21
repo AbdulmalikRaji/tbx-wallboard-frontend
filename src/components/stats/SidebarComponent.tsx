@@ -5,12 +5,14 @@ import FilterComponent from "./FilterComponent";
 import CatStatsComponent from "./CatStatsComponent";
 import { Product } from "@/interfaces/product_interface";
 import TotalCatStatComponent from "./TotalCatStatComponent";
+import { CategoryCounts } from "@/interfaces/cat_count_interface";
 
 
 interface SidebarComponentProps {
   products: Array<Product>;
+  categories: CategoryCounts; 
 }
-const SidebarComponent: React.FC<SidebarComponentProps> = ({products}) => {
+const SidebarComponent: React.FC<SidebarComponentProps> = ({products, categories}) => {
   try {
     const router = useRouter();
     useEffect(() => {
@@ -21,7 +23,7 @@ const SidebarComponent: React.FC<SidebarComponentProps> = ({products}) => {
   
     return(
       <div className="h-full bg-gray-50">
-        <CatStatsComponent products={products}/>
+        <CatStatsComponent products={products} categories={categories}/>
       </div>
     )
   } catch (err) {
