@@ -92,13 +92,14 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
                         className: "dot-marker-red",
                         iconSize: [8, 8], // Adjust the size of the dot
                     })
+                    if(pin.X && pin.Y){
                       return(
                         <Marker key={index} position={[pin.X, pin.Y]} icon={dotIcon}>
                         <Popup>
                         {pin.Category} <br /> {pin.ProductName}
                         </Popup>
                         </Marker>
-                      )
+                      )}
     
                       })}
             </MapContainer>
