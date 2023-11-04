@@ -20,13 +20,14 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
   
-          {pins.map((pin, index) => (
+          {pins.map((pin, index) => {
+if(pin.X && pin.Y){ return(
             <Marker key={index} position={[pin.X, pin.Y]}>
               <Popup>
                 {pin.Barcode} <br /> Easily customizable.
               </Popup>
-            </Marker>
-          ))}
+            </Marker>)}
+   } )}
         </MapContainer>
       </div>
     );
