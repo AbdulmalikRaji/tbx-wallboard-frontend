@@ -30,6 +30,11 @@ const MainDashboard: React.FC = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
   const pins = useSelector(selectPins);
+// Assuming `products` is an array of objects of type `Product`
+const uniqueProducts = Array.from(
+  new Set(products.map((product: Product) => JSON.stringify(product))),
+  (str: string) => JSON.parse(str) as Product
+) as Product[];
 
   const [productCounts, setProductCounts] = useState<Analysis[]>([{Title: 'Products Sent Last Hour', Value: '0'}, {Title: 'Products Sent Last 24 Hours', Value: '0'}],);
   const [uniqueLocations, setUniqueLocations] = useState<number>(0);
@@ -134,7 +139,7 @@ const MainDashboard: React.FC = () => {
             }`}
           >
             
-            {showTable && <TableComponent products={products} />}
+            {showTable && <TableComponent products={uniqueProducts} />}
             <button
               onClick={handleToggleTable}
               className="flex px-4 bg-slate-200 text-gray-700 w-0.5 h-full justify-center items-center"
