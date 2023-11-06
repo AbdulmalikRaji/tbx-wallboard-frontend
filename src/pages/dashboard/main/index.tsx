@@ -135,7 +135,7 @@ const uniqueProducts = Array.from(
         <div className="flex flex-col sm:flex-row h-screen">
           <div
             className={`flex overflow sm:overflow-hidden rounded-lg mx-2 my-2 transition-all duration-300 ${
-              showTable ? "min-h-screen sm:min-h-0 sm:h-auto w-full sm:w-1/3" : "h-auto w-fit"
+              showTable ? "min-h-screen sm:min-h-0 sm:h-auto w-full sm:w-1/4" : "h-auto w-fit"
             }`}
           >
             
@@ -149,7 +149,7 @@ const uniqueProducts = Array.from(
           </div>
           <div
             className={`flex flex-col ${
-              showTable ? "w-full sm:w-2/3" : "w-full"
+              showTable ? "w-full sm:w-3/4" : "w-full"
             }`}
           >
             <div className="m-4">
