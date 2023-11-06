@@ -13,9 +13,9 @@ const TableCardComponent: React.FC<TableCardComponentProps> = ({ product }) => {
           <img src={product.ImageUrl} alt={product.ProductName} className="w-full h-auto rounded-xl" />
         </div> */}
         <div>
-  <h4 className="text-gray-700 text-xs sm:text-sm md:text-base font-semibold">{product.ProductName}</h4>
-  <h6 className="text-gray-700 text-xxs sm:text-xs">{product.Category}</h6>
-  <p className="text-gray-500 line-clamp-1 text-xxs sm:text-xs">Barcode: {product.Barcode}</p>
+  <h4 className="text-gray-700 text-xs sm:text-sm md:text-base  font-bold">{product.ProductName}</h4>
+  <h5 className="text-gray-700 text-xxs sm:text-xs font-semibold">{product.Category}</h5>
+  <p className="text-gray-500 line-clamp-1 text-xxs sm:text-xs ">Barcode: {product.Barcode}</p>
   <p className="text-gray-500 block text-xxs sm:text-xs">Shop: {product.Shop}</p>
   <p className="text-gray-500 text-xxs sm:text-xs">Location: {product.Location[0]}, {product.Location[1]}</p>
 </div>
