@@ -121,9 +121,9 @@ const uniqueProducts = Array.from(
 
   // setInterval(filterExpiredPins,1000,pins,dispatch)
 
-  useEffect(() => {
-    filterExpiredPins(pins, dispatch);
-  }, [products]);
+  setInterval(()=>{
+    filterExpiredPins(pins,dispatch)
+  },1000)
 
   const handleToggleTable = () => {
     setShowTable((prevValue) => !prevValue);

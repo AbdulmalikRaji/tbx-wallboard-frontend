@@ -66,9 +66,9 @@ const StatsDashboard: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
+  setInterval(()=>{
     filterExpiredPins(pins,dispatch)
-  }, [products]);
+  },1000)
   
 
   return(
