@@ -25,7 +25,7 @@ const timeWindowInSeconds = 10;
 
 
 const StatsDashboard: React.FC= () => { 
-  const dispatch = useDispatch();
+ // const dispatch = useDispatch();
  // const products = useSelector(selectProducts);
   //const pins = useSelector(selectPins);
   const [localPins, setLocalPins] = useState<Pin[]>([]);
@@ -65,9 +65,6 @@ const StatsDashboard: React.FC= () => {
     socket.connect();
     socket.on("shortPins", (newPins) => {
       setLocalPins(newPins);
-    });
-    socket.on("thisTime", (thisSecond) => {
-      setThisSecond(thisSecond);
     });
     socket.on("thisTime", (thisSecond) => {
       setThisSecond(thisSecond);
