@@ -26,8 +26,12 @@ const timeWindowInSeconds = 10;
 
 const StatsDashboard: React.FC= () => { 
   const dispatch = useDispatch();
-  const products = useSelector(selectProducts);
-  const pins = useSelector(selectPins);
+ // const products = useSelector(selectProducts);
+  //const pins = useSelector(selectPins);
+  const [localPins, setLocalPins] = useState<Pin[]>([]);
+  const [thisSecond, setThisSecond] = useState<number>(0);
+  const [productsThisSecond, setProductsThisSecond] = useState<number>(0);
+
   const [data, setData] = useState([{ x: 0, y: 0 }]);
   const [layout, setLayout] = useState({
     title: 'Real-Time Product Time Series',
@@ -42,11 +46,11 @@ const StatsDashboard: React.FC= () => {
 
 
   useEffect(() => {
-    let currentSecond = 0;
+    //let currentSecond = 0;
 
     // Start a timer to reset Y-axis every second
     const timer = setInterval(() => {
-      currentSecond += 1;
+      const currentSecond = thisSecond;
       // Reset Y-axis to zero at the beginning of each second
       setLayout((prevLayout) => ({
         ...prevLayout,
@@ -59,14 +63,21 @@ const StatsDashboard: React.FC= () => {
     }, 1000);
 
     socket.connect();
-    socket.on("products", (product)=> {
-      product.timestamp = new Date().getSeconds()
-      updateStats(product,dispatch)
-      updateProducts(product,pins,dispatch)
+    socket.on("shortPins", (newPins) => {
+      setLocalPins(newPins);
+    });
+    socket.on("thisTime", (thisSecond) => {
+      setThisSecond(thisSecond);
+    });
+    socket.on("thisTime", (thisSecond) => {
+      setThisSecond(thisSecond);
       setData((prevData) => [
         ...prevData,
-        { x: prevData[prevData.length - 1].x, y: prevData[prevData.length - 1].y + 1 },
+        { x: prevData[prevData.length - 1].x, y: productsThisSecond },
       ]);
+    });
+    socket.on("productsThisSecond", (product) => {
+      setProductsThisSecond(product)
     });
 
     return () => {
@@ -77,9 +88,9 @@ const StatsDashboard: React.FC= () => {
   }, []);
 
 
-  useEffect(() => {
-    filterExpiredPins(pins,dispatch)
-  }, [products]);
+  // useEffect(() => {
+  //   filterExpiredPins(pins,dispatch)
+  // }, [products]);
   
 
   return(
@@ -102,7 +113,7 @@ const StatsDashboard: React.FC= () => {
             <div className="bg-gray-50 w-auto sm:w-1/2 h-3/4 p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
               <h2 className="text-gray-700 font-bold text-lg">Products locations</h2>
               <div className="h-[42rem] h-max-min">
-                <MapComponent pins={pins} />
+                <MapComponent pins={localPins} />
               </div>
             </div>
           </div>

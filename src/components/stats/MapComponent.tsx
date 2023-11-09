@@ -62,7 +62,7 @@ interface MapComponentProps {
 // }
 const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
     try {
-        const filterState = useSelector(selectFilterState);
+        const filterState:string[] = useSelector(selectFilterState);
         const [filteredPins,setFilterdPins] = useState<Array<Pin>>()
         useEffect(()=>{
             let newPins;

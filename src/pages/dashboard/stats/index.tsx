@@ -26,20 +26,30 @@ const PIN_TIMEOUT_SHORT = 3000;
 const PIN_TIMEOUT_LONG = 30000;
 
 const StatsDashboard: React.FC = () => { 
-  const dispatch = useDispatch();
-  const products = useSelector(selectProducts);
-  const pins = useSelector(selectLongPins);
+ // const dispatch = useDispatch();
+ // const products = useSelector(selectProducts);
+ const [localProducts, setLocalProducts] = useState<Product[]>([]);
+ socket.on("products", (product) => {
+  //updateStats(product, dispatch);
+//  updateProducts(product, pins, dispatch);
+  setLocalProducts(product);
+});
+  //const pins = useSelector(selectLongPins);
+  const [localPins, setLocalPins] = useState<Pin[]>([]);
   const [catCounts, setCatCounts] = useState<Analysis[]>([{Title: 'Unique categories in the Last Hour', Value: '0'}, {Title: 'Unique categories in the Last 24 Hours', Value: '0'}],);
   const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({});
 
 
   useEffect(() => {
     socket.connect();
-    socket.on("products", (product)=> {
-      updateStats(product,dispatch)
-      updateProducts(product,pins,dispatch)
-    });
+    // socket.on("products", (product)=> {
+    //   updateStats(product,dispatch)
+    //   updateProducts(product,pins,dispatch)
+    // });
 
+    socket.on("longPins", (newPins) => {
+      setLocalPins(newPins);
+    });
     socket.on("categoryCounts", (cats) => {
       const categoryCounts: CategoryCounts = {};
     
@@ -61,14 +71,14 @@ const StatsDashboard: React.FC = () => {
     });
 
     return () => {
-      socket.off("products", updateProducts);
+      //socket.off("products", updateProducts);
       socket.disconnect();
     };
   }, []);
 
-  setInterval(()=>{
-    filterExpiredPins(pins,dispatch)
-  },1000)
+  // setInterval(()=>{
+  //   filterExpiredPins(pins,dispatch)
+  // },1000)
   
 
   return(
@@ -78,12 +88,12 @@ const StatsDashboard: React.FC = () => {
         <TotalCatStatComponent catCounts={catCounts} categories={categoryCounts}/>
           <div className="h-max flex flex-col sm:flex-row bg-slate-100">
             <div className="bg-gray-50 drop-shadow-lg sm:w-1/4 p-4 rounded-xl my-4 mx-2">
-              <SidebarComponent products={products} categories={categoryCounts}/>
+              <SidebarComponent products={localProducts} categories={categoryCounts}/>
             </div>
             <div className="bg-gray-50 w-auto sm:w-3/4 h-fit p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
               <h2 className="text-gray-700 font-bold text-lg">Products locations</h2>
               <p className="text-gray-700 mb-2 text-sm">If there are filtered categories, only them will be shown in map</p>
-              <MapComponent pins={pins}/>
+              <MapComponent pins={localPins}/>
             </div>
           </div>
           </div>

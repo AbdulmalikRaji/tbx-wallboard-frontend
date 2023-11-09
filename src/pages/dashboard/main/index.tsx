@@ -22,87 +22,33 @@ const MapComponent = dynamic(() => import("@/components/main/MapComponent"), {
   ssr: false,
 });
 
-const MAX_PRODUCTS = 60;
-const PIN_TIMEOUT_SHORT = 3000;
-const PIN_TIMEOUT_LONG = 30000;
 
 const MainDashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const products = useSelector(selectProducts);
-  const pins = useSelector(selectPins);
+  //const products = useSelector(selectProducts);
+  const [localProducts, setLocalProducts] = useState<Product[]>([]);
+  const [localPins, setLocalPins] = useState<Pin[]>([]);
+//  const pins = useSelector(selectPins);
 // Assuming `products` is an array of objects of type `Product`
-const uniqueProducts = Array.from(
-  new Set(products.map((product: Product) => JSON.stringify(product))),
-  (str: string) => JSON.parse(str) as Product
-) as Product[];
+// const uniqueProducts = Array.from(
+//   new Set(products.map((product: Product) => JSON.stringify(product))),
+//   (str: string) => JSON.parse(str) as Product
+// ) as Product[];
 
   const [productCounts, setProductCounts] = useState<Analysis[]>([{Title: 'Products Sent Last Hour', Value: '0'}, {Title: 'Products Sent Last 24 Hours', Value: '0'}],);
   const [uniqueLocations, setUniqueLocations] = useState<number>(0);
   const [showTable, setShowTable] = useState<boolean>(true);
   const [mapPins, setMapPins] = useState<Pin[]>([]);
 
-  // useEffect(() => {
-  //   const updateProducts = (newProduct: Product) => {
-  //     dispatch(addProduct(newProduct));
-
-  //     const { Barcode, Location } = newProduct;
-  //     const existingPin = pins.find((pin) => pin.Barcode === Barcode);
-
-  //     if (!existingPin) {
-  //       const pinWithShortTimeout: Pin = {
-  //         Barcode,
-  //         X: Location[0],
-  //         Y: Location[1],
-  //         timeoutId: undefined,
-  //       };
-  //       const pinWithLongTimeout: Pin = {
-  //         Barcode,
-  //         X: Location[0],
-  //         Y: Location[1],
-  //         Category:newProduct.Category,
-  //         ProductName:newProduct.ProductName,
-  //         timeoutId: undefined,
-  //       };
-
-  //       dispatch(addPin(pinWithShortTimeout));
-  //       dispatch(addLongPin(pinWithLongTimeout));
-
-  //       startTimeout(pinWithShortTimeout, PIN_TIMEOUT_SHORT);
-  //       startTimeout(pinWithLongTimeout, PIN_TIMEOUT_LONG);
-
-  //       setMapPins((prevPins) => [...prevPins, pinWithShortTimeout]);
-  //     } else if (!existingPin.timeoutId) {
-  //       startTimeout(existingPin, PIN_TIMEOUT_SHORT);
-  //     }
-  //   };
-
-  //   socket.connect();
-
-  //   socket.on("products", updateProducts);
-
-  //   return () => {
-  //     socket.off("products", updateProducts);
-  //     socket.disconnect();
-  //   };
-  // }, [dispatch, pins]);
-
-  // useEffect(() => {
-  //   setProductCount(products.length);
-  //   setUniqueLocations(new Set(products.map((product) => product.Location.join(","))).size);
-  // }, [products]);
-
-  // const startTimeout = (pin: Pin, timeout: number) => {
-  //   pin.timeoutId = setTimeout(() => {
-  //     dispatch(removePin(pin.Barcode));
-  //     setMapPins((prevPins) => prevPins.filter((p) => p.Barcode !== pin.Barcode));
-  //   }, timeout);
-  // };
-
   useEffect(() => {
     socket.connect();
     socket.on("products", (product) => {
-      updateStats(product, dispatch);
-      updateProducts(product, pins, dispatch);
+      //updateStats(product, dispatch);
+    //  updateProducts(product, pins, dispatch);
+      setLocalProducts(product);
+    });
+    socket.on("shortPins", (newPins) => {
+      setLocalPins(newPins);
     });
     socket.on('productCounts', (counts) => {
       const productCountsArray: Analysis[] = [
@@ -121,9 +67,9 @@ const uniqueProducts = Array.from(
 
   // setInterval(filterExpiredPins,1000,pins,dispatch)
 
-  setInterval(()=>{
-    filterExpiredPins(pins,dispatch)
-  },1000)
+  // setInterval(()=>{
+  // //  filterExpiredPins(pins,dispatch)
+  // },1000)
 
   const handleToggleTable = () => {
     setShowTable((prevValue) => !prevValue);
@@ -139,7 +85,7 @@ const uniqueProducts = Array.from(
             }`}
           >
             
-            {showTable && <TableComponent products={uniqueProducts} />}
+            {showTable && <TableComponent products={localProducts} />}
             <button
               onClick={handleToggleTable}
               className="flex px-4 bg-slate-200 text-gray-700 w-0.5 h-full justify-center items-center"
@@ -160,7 +106,7 @@ const uniqueProducts = Array.from(
                 Products locations
               </h2>
               <div className="h-[40rem] h-max-min">
-                <MapComponent pins={pins} />
+                <MapComponent pins={localPins} />
               </div>
             </div>
           </div>
