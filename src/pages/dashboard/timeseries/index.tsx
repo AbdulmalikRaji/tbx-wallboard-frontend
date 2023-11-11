@@ -18,13 +18,47 @@ const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 const MapComponent = dynamic(() => import('@/components/main/MapComponent'), {
   ssr: false,
 });
+import { Chart } from 'react-google-charts';
 
+// const GoogleBarChartComponent = () => {
+//   const data = [
+//     ['City', 'Population'],
+//     ['Tokyo', 37750000],
+//     ['Delhi', 21753486],
+//     ['Shanghai', 23019148],
+//     ['Sao Paulo', 21066245],
+//   ];
+
+//   const options = {
+//     title: 'Population and Area of Largest Cities',
+//     chartArea: { width: '50%' },
+//     hAxis: {
+//       title: 'Population',
+//       minValue: 0,
+//     },
+//     vAxis: {
+//       title: 'City',
+//     },
+//   };
+
+//   return (
+//     <Chart
+//       chartType="BarChart"
+//       width="100%"
+//       height="400px"
+//       data={data}
+//       options={options}
+//     />
+//   );
+// };
+
+// export default GoogleBarChartComponent;
 
 
 const timeWindowInSeconds = 10;
 
 
-const StatsDashboard: React.FC= () => { 
+const TimeSeriesDashboard: React.FC= () => { 
  // const dispatch = useDispatch();
  // const products = useSelector(selectProducts);
   //const pins = useSelector(selectPins);
@@ -32,86 +66,57 @@ const StatsDashboard: React.FC= () => {
   const [thisSecond, setThisSecond] = useState<number>(0);
   const [productsThisSecond, setProductsThisSecond] = useState<number>(0);
 
-  const [data, setData] = useState([{ x: 0, y: 0 }]);
-  const [layout, setLayout] = useState({
-    title: 'Real-Time Product Time Series',
-    xaxis: {
-      title: 'Time (seconds)',
-      range: [0, timeWindowInSeconds],
+  const [data, setData] = useState(
+    [["Time","Products per second"],
+    ["0",0],
+   ]
+    );
+  const options = {
+    title: 'Number of products each second',
+    chartArea: { width: '70%' },
+    hAxis: {
+      title: 'Time',
+      minValue: 0,
     },
-    yaxis: {
+    vAxis: {
       title: 'Products per second',
     },
-  });
+  };
 
 
   useEffect(() => {
-    //let currentSecond = 0;
-
-    // Start a timer to reset Y-axis every second
-    const timer = setInterval(() => {
-      const currentSecond = thisSecond;
-      // Reset Y-axis to zero at the beginning of each second
-      setLayout((prevLayout) => ({
-        ...prevLayout,
-        xaxis: {
-          ...prevLayout.xaxis,
-          range: [currentSecond - timeWindowInSeconds, currentSecond],
-        },
-      }));
-      setData((prevData) => [...prevData, { x: currentSecond, y: 0 }]);
-    }, 1000);
 
     socket.connect();
     socket.on("shortPins", (newPins) => {
       setLocalPins(newPins);
     });
-    socket.on("thisTime", (thisSecond) => {
-      setThisSecond(thisSecond);
-      setData((prevData) => [
-        ...prevData,
-        { x: prevData[prevData.length - 1].x, y: productsThisSecond },
-      ]);
-    });
-    socket.on("productsThisSecond", (product) => {
-      setProductsThisSecond(product)
+    socket.on("productsThisSecond", (productsThisSecond) => {
+      setData((prevData) => [prevData[0], ...productsThisSecond]);
     });
 
     return () => {
-      clearInterval(timer);
-      socket.off("products", updateProducts);
+      socket.off("shortPins", updateProducts);
+      socket.off("productsThisSecond", updateProducts);
       socket.disconnect();
     };
   }, []);
-
-
-  // useEffect(() => {
-  //   filterExpiredPins(pins,dispatch)
-  // }, [products]);
-  
 
   return(
     <Layout>
         <div className="h-screen mx-auto ">
           <div className="h-full flex flex-col sm:flex-row bg-slate-100 text-white">
             <div className="bg-gray-50 w-auto sm:w-1/2 h-fit p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
-            <Plot className="w-full"
-              data={[
-                {
-                  type: 'scatter',
-                  mode: 'lines+markers',
-                  x: data.map((point) => point.x),
-                  y: data.map((point) => point.y),
-                },
-              ]}
-              layout={layout}
-            />
+                 <Chart
+                  chartType="ColumnChart"
+                  width="100%"
+                  height="100%"
+                  data={data}
+                  options={options}
+                />
             </div>
-            <div className="bg-gray-50 w-auto sm:w-1/2 h-3/4 p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
+            <div className="bg-gray-50 w-auto sm:w-1/2 h-[35rem] p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
               <h2 className="text-gray-700 font-bold text-lg">Products locations</h2>
-              <div className="h-[42rem] h-max-min">
-                <MapComponent pins={localPins} />
-              </div>
+              <MapComponent pins={localPins} />
             </div>
           </div>
         </div>
@@ -120,4 +125,4 @@ const StatsDashboard: React.FC= () => {
 
 };
 
-export default withAuth(StatsDashboard);
+export default withAuth(TimeSeriesDashboard);

@@ -101,13 +101,11 @@ const MainDashboard: React.FC = () => {
             <div className="m-4">
               <AnalysisComponent productCounts={productCounts}/>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 overflow-hidden m-2 drop-shadow-md">
+            <div className="bg-gray-50 rounded-xl p-4 overflow-hidden m-2 drop-shadow-md h-[35rem]">
               <h2 className="text-gray-700 mb-2 font-bold text-lg">
                 Products locations
               </h2>
-              <div className="h-[40rem] h-max-min">
                 <MapComponent pins={localPins} />
-              </div>
             </div>
           </div>
         </div>

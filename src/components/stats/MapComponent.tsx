@@ -80,7 +80,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
     
         },[pins,filterState])
         return (
-            <div className="overflow-hidden h-[40rem] rounded-lg">
+            <div className="overflow-hidden h-[30rem] rounded-lg">
             <MapContainer center={[41.0082, 28.9784]} zoom={9} scrollWheelZoom={false}>
                 <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

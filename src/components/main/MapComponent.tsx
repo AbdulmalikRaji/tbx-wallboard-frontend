@@ -13,7 +13,7 @@ interface MapComponentProps {
 const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
   try {
     return (
-      <div className="overflow-hidden h-full">
+      <div className="overflow-hidden h-[30rem] rounded-xl">
         <MapContainer center={[41.0082, 28.9784]} zoom={9} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

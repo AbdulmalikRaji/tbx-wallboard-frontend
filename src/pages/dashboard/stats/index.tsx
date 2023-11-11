@@ -90,7 +90,7 @@ const StatsDashboard: React.FC = () => {
             <div className="bg-gray-50 drop-shadow-lg sm:w-1/4 p-4 rounded-xl my-4 mx-2">
               <SidebarComponent products={localProducts} categories={categoryCounts}/>
             </div>
-            <div className="bg-gray-50 w-auto sm:w-3/4 h-fit p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
+            <div className="bg-gray-50 w-auto sm:w-3/4 h-[35rem] p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
               <h2 className="text-gray-700 font-bold text-lg">Products locations</h2>
               <p className="text-gray-700 mb-2 text-sm">If there are filtered categories, only them will be shown in map</p>
               <MapComponent pins={localPins}/>
