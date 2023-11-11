@@ -73,7 +73,7 @@ const TimeSeriesDashboard: React.FC= () => {
     );
   const options = {
     title: 'Number of products each second',
-    chartArea: { width: '70%' },
+    chartArea: { width: '70%'},
     hAxis: {
       title: 'Time',
       minValue: 0,
@@ -105,7 +105,7 @@ const TimeSeriesDashboard: React.FC= () => {
     <Layout>
         <div className="h-screen mx-auto ">
           <div className="h-full flex flex-col sm:flex-row bg-slate-100 text-white">
-            <div className="bg-gray-50 w-auto sm:w-1/2 h-fit p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
+            <div className="bg-gray-50 w-auto sm:w-1/2 h-[35rem] p-4 rounded-xl my-4 mx-2 overflow-hidden drop-shadow-lg">
                  <Chart
                   chartType="ColumnChart"
                   width="100%"
