@@ -73,7 +73,7 @@ const TimeSeriesDashboard: React.FC= () => {
     );
   const options = {
     title: 'Number of products each second',
-    chartArea: { width: '70%'},
+    chartArea: { width: '65%'},
     hAxis: {
       title: 'Time',
       minValue: 0,
