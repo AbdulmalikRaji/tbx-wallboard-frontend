@@ -14,7 +14,7 @@ const AnalysisComponent: React.FC<AnalysisComponentProps> = ({ productCounts }) 
     const categoryCount: Analysis = { Title: "Total Category Count", Value: uniqueCategoryCount.toString() };
     return (
       <div className="flex justify-center gap-4">
-        {productCounts.map(analysis => (<div className="w-full">
+        {productCounts.map(analysis => (<div key={analysis.Title} className="w-full">
           <AnalysisCardComponent analysis={analysis} />
         </div>))}
         {/* <div className="w-full">

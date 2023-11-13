@@ -3,10 +3,11 @@ import { selectFilterState, setFilterState} from "@/store/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const FilterComponent: React.FC = () => {
-    try {
+
+        const [filter,setFilter] = useState<string>();
         const dispatch = useDispatch();
         const filterState = useSelector(selectFilterState);
-        const [filter,setFilter] = useState<string>();
+        try {
     
         const handleFilterChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
             setFilter(event.target.value)
@@ -17,9 +18,9 @@ const FilterComponent: React.FC = () => {
     
         useEffect(() => {
             return () => {
-    
+        
             };
-        }, []);
+          }, []);
     
         return(
             <div className="flex-col">

@@ -13,13 +13,14 @@ interface SidebarComponentProps {
   categories: CategoryCounts; 
 }
 const SidebarComponent: React.FC<SidebarComponentProps> = ({products, categories}) => {
+
+  useEffect(() => {
+    return () => {
+
+    };
+  }, []);
   try {
     const router = useRouter();
-    useEffect(() => {
-      return () => {
-  
-      };
-    }, []);
   
     return(
       <div className="h-full bg-gray-50">

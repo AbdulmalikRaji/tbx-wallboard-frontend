@@ -13,19 +13,17 @@ interface CatStatsComponentProps {
 }
 
 const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products , categories}) => {
-  try {
-    const filterState = useSelector(selectFilterState);
-    const [catCounter, setCatCounter] = useState<CategoryCounts>({});
-    const [totalCount, setTotalCount] = useState<number>(0);
+  
     const catCount = categories
     const totalCatCount = Object.values(categories).reduce((sum, count) => sum + count, 0);
     const dispatch = useDispatch();
+    const filterState = useSelector(selectFilterState);
     const [totalFilterdCatCount, setTotalFilterdCatCount] = useState<number>(0);
     const [totalUnfilterdCatCount, setTotalUnfilterdCatCount] =
       useState<number>(0);
     const [showCombinedPercentages, setShowCombinedPercentages] =
       useState(true);
-
+      
     const filteredCategories: Array<[string, number]> = [];
     const nonFilteredCategories: Array<[string, number]> = [];
 
@@ -44,31 +42,8 @@ const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products , catego
       setTotalUnfilterdCatCount(
         nonFilteredCategories.reduce((acc, [, value]) => acc + value, 0)
       );
-    });
-    // useEffect(() => {
-
-    //     const updatedCatCounter:  CategoryCounts = {};
-    //     setTotalCount(products.length)
-    //     products.forEach((product) => {
-    //     const category = product.Category;
-    //       if (updatedCatCounter.hasOwnProperty(category)) {
-    //         updatedCatCounter[category] += 1;
-    //       } else {
-    //         updatedCatCounter[category] = 1;
-    //       }
-    //     });
-
-    //     setCatCounter((prevCounter: { [category: string]: number }) => {
-    //       return {
-    //         ...prevCounter,
-    //         ...updatedCatCounter,
-    //       };
-    //     });
-
-    //     return () => {
-
-    //     };
-    // }, [products]);
+    }, [filteredCategories, nonFilteredCategories, setTotalFilterdCatCount]);
+    try {
 
     Object.entries(catCount).forEach(([key, value]) => {
       try {

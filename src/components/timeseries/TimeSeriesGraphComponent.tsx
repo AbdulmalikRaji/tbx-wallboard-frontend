@@ -7,13 +7,14 @@ interface TimeSeriesGraphComponentProps {
     products: Array<Product>;
   }
   const SidebarComponent: React.FC<TimeSeriesGraphComponentProps> = ({products}) => {
-    try {
+ 
       const router = useRouter();
       useEffect(() => {
         return () => {
     
         };
       }, []);
+      try {
     
       return(
         <div className="h-full bg-gray-50">

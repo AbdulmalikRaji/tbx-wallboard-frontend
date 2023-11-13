@@ -12,7 +12,7 @@ interface TotalCatStatComponentProps {
 }
 
 const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts, categories}) => {
-    try {
+    
         const catCount = categories
         //console.log(categories)
         const totalCatCount = Object.values(categories).reduce((sum, count) => sum + count, 0);
@@ -20,6 +20,12 @@ const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts,
         const filterState = useSelector(selectFilterState);
         const filteredCategories: Array<[string, number]> = [];
         const nonFilteredCategories: Array<[string, number]> = [];
+        useEffect(() => {
+          return () => {
+      
+          };
+        }, []);
+        try {
 
         Object.entries(catCount).forEach(([key, value]) => {
             try {
@@ -55,7 +61,7 @@ const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts,
             <div className="mx-4"> 
               <h2 className="text-gray-700 font-bold text-xl">General Statistics</h2>
               <div className="flex flex-row space-x-4">
-                {catCounts.map(cat => (<div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
+                {catCounts.map(cat => (<div key={cat.Title} className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
                   <p className="text-gray-700 font-bold">{cat.Title}: {cat.Value}</p>
                 </div>))}
                 {/* <div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">

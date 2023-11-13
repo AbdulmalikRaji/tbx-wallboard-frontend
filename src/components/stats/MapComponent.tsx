@@ -61,7 +61,7 @@ interface MapComponentProps {
 
 // }
 const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
-    try {
+    
         const filterState:string[] = useSelector(selectFilterState);
         const [filteredPins,setFilterdPins] = useState<Array<Pin>>()
         useEffect(()=>{
@@ -79,6 +79,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
             })
     
         },[pins,filterState])
+        try {
         return (
             <div className="overflow-hidden h-[30rem] rounded-lg">
             <MapContainer center={[41.0082, 28.9784]} zoom={9} scrollWheelZoom={false}>
