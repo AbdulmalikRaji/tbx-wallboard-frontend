@@ -5,7 +5,7 @@ import { selectFilterState, setFilterState } from "@/store/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "@/interfaces/product_interface";
 import { CategoryCounts } from "@/interfaces/cat_count_interface";
-import { selectCatCount, selectTotalCatCount } from "@/store/catCountSlice";
+
 
 interface CatStatsComponentProps {
   products: Array<Product>;

@@ -1,7 +1,6 @@
 import React from "react";
 import AnalysisCardComponent from "./AnalysisCardComponent";
 import { useSelector } from "react-redux";
-import { selectTotalCountAnalysis } from "@/store/totalCountAnalysisSlice";
 import { selectUniqueCategoryCount } from "@/store/catCountSlice";
 import { Analysis } from "@/interfaces/analysis_interface";
 
@@ -11,7 +10,6 @@ interface AnalysisComponentProps {
 
 const AnalysisComponent: React.FC<AnalysisComponentProps> = ({ productCounts }) => {
   try {
-    const totalCountAnalysisSelect = useSelector(selectTotalCountAnalysis);
     const uniqueCategoryCount = useSelector(selectUniqueCategoryCount);
     const categoryCount: Analysis = { Title: "Total Category Count", Value: uniqueCategoryCount.toString() };
     return (
