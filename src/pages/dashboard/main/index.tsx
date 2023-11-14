@@ -45,7 +45,7 @@ const MainDashboard: React.FC = () => {
     });
 
     return () => {
-      socket.off("products", updateProducts);
+      //socket.off("products", updateProducts);
       socket.disconnect();
     };
   }, []);
