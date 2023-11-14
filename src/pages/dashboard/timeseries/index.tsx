@@ -68,9 +68,15 @@ const TimeSeriesDashboard: React.FC= () => {
     hAxis: {
       title: 'Time',
       minValue: 0,
+      slantedText: true, // Set to true to enable slanted text
+      slantedTextAngle: 45, // Specify the angle of the slanted text
     },
     vAxis: {
       title: 'Products per second',
+      viewWindow: {
+        min: 0,
+        max: 50,
+      },
     },
   };
 
