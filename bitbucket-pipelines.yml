@@ -19,6 +19,7 @@ pipelines:
             - node
           script:
             - npm install
+            - npm run build
   branches:
     master:
       - parallel:
@@ -28,6 +29,7 @@ pipelines:
               - node
             script:
               - npm install
+              - npm run build
               - apt update && apt install zip
               # Exclude files to be ignored
               - zip -r app-$BITBUCKET_BUILD_NUMBER.zip . -x *.git* bitbucket-pipelines.yml
