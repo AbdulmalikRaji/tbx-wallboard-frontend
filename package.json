@@ -3,11 +3,11 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4000",
+    "dev": "next dev -p 8080",
     "server": "cd .. && cd websocketAPI && npm run start",
     "frontend": "next dev -p 4000",
     "build": "next build",
-    "start": "next start -p 8181",
+    "start": "next start -p 8080",
     "lint": "next lint"
   },
   "dependencies": {
