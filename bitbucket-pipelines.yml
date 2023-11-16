@@ -48,7 +48,7 @@ pipelines:
           script:
             - apt-get update && apt-get install -y zip
             - zip -r build.zip . -x "*.git*" -x "*node_modules*"
-            - pipe: atlassian/azure-web-apps-deploy:1.0.1
+            - pipe: microsoft/azure-web-apps-deploy:1.0.1
               variables:
                 AZURE_APP_ID: $AZURE_APP_ID
                 AZURE_PASSWORD: $AZURE_PASSWORD
