@@ -7,7 +7,7 @@
     "server": "cd .. && cd websocketAPI && npm run start",
     "frontend": "next dev -p 4000",
     "build": "next build",
-    "start": "next start -p 4000",
+    "start": "next start -p 8181",
     "lint": "next lint"
   },
   "dependencies": {
