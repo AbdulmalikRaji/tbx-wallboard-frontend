@@ -46,6 +46,8 @@ pipelines:
           trigger: manual
           deployment: Production
           script:
+            - apt-get update && apt-get install -y zip
+            - zip -r build.zip . -x "*.git*" -x "*node_modules*"
             - pipe: atlassian/azure-web-apps-deploy:1.0.1
               variables:
                 AZURE_APP_ID: $AZURE_APP_ID
@@ -53,4 +55,4 @@ pipelines:
                 AZURE_TENANT_ID: $AZURE_TENANT_ID
                 AZURE_RESOURCE_GROUP: $AZURE_RESOURCE_GROUP
                 AZURE_APP_NAME: $AZURE_APP_NAME
-                ZIP_FILE: app-$BITBUCKET_BUILD_NUMBER.zip
+                ZIP_FILE: build.zip
