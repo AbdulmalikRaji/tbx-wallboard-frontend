@@ -75,7 +75,7 @@ const TimeSeriesDashboard: React.FC= () => {
       title: 'Products per second',
       viewWindow: {
         min: 0,
-        max: 50,
+        max: 600,
       },
     },
   };
