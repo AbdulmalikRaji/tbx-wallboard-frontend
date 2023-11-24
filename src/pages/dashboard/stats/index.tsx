@@ -63,7 +63,7 @@ const StatsDashboard: React.FC = () => {
 
   return(
     <Layout>
-        <div className="h-screen mx-auto ">
+        <div className=" mx-auto ">
         <div className=" bg-slate-100">
         <TotalCatStatComponent catCounts={catCounts} categories={categoryCounts}/>
           <div className="h-max flex flex-col sm:flex-row bg-slate-100">

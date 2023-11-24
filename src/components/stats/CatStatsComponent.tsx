@@ -80,7 +80,7 @@ const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products , catego
             : "Show Combined Percentages"}
         </button>
 
-        <ul className="bg-slate-100 p-2 mt-2 rounded-xl overflow-y-auto overflow-x-hidden max-h-[50rem] scrollbar-thin scrollbar-thumb-sky-600 scrollbar-track-slate-100">
+        <ul className="bg-slate-100 p-2 mt-2 rounded-xl overflow-y-auto overflow-x-hidden max-h-[35rem] scrollbar-thin scrollbar-thumb-sky-600 scrollbar-track-slate-100">
           <p className="text-gray-700">
             Filtered Categories ({filteredCategories.length})
           </p>
@@ -92,10 +92,10 @@ const CatStatsComponent: React.FC<CatStatsComponentProps> = ({ products , catego
             return (
               <li
                 key={key}
-                className={`py-2 m-2 rounded-xl grid grid-cols-3 gap-2 justify-between justify-items-center bg-slate-100 border border-blue-500 text-sky-700 font-bold cursor-pointer relative `}
+                className={`py-2 m-2  rounded-xl grid grid-cols-3 gap-2 justify-between justify-items-center bg-slate-100 border border-blue-500 text-sky-700 font-bold cursor-pointer relative `}
                 onClick={() => handleCatClick(key)}
               >
-                <span>{key}</span>
+                <span className={'ml-8'}>{key}</span>
                 <span>{value}</span>
                 <span>{percentage}%</span>
                 <div

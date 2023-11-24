@@ -23,7 +23,7 @@ const SidebarComponent: React.FC<SidebarComponentProps> = ({products, categories
     const router = useRouter();
   
     return(
-      <div className="h-full bg-gray-50">
+      <div className="h-fit bg-gray-50">
         <CatStatsComponent products={products} categories={categories}/>
       </div>
     )
