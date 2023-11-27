@@ -35,7 +35,6 @@ const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts,
                    isFiltered = false;
               }else {
                   isFiltered = filterState.length !== 0 && filterState.includes(key);
-                  console.log(isFiltered)
               }
               if (isFiltered) {
                 filteredCategories.push([key, value]);
