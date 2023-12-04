@@ -25,7 +25,7 @@ const StatsDashboard: React.FC = () => {
 });
 
   const [localPins, setLocalPins] = useState<Pin[]>([]);
-  const [catCounts, setCatCounts] = useState<Analysis[]>([{Title: 'Unique categories in the Last Hour', Value: '0'}, {Title: 'Unique categories in the Last 24 Hours', Value: '0'}],);
+  const [catCounts, setCatCounts] = useState<Analysis[]>([{Title: 'Unique Categories in the Last Hour', Value: '0'}, {Title: 'Unique Categories in the Last 24 Hours', Value: '0'}],);
   const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({});
 
 
@@ -47,8 +47,8 @@ const StatsDashboard: React.FC = () => {
 
     socket.on('catCounts', (counts) => {
       const catCountsArray: Analysis[] = [
-        { Title: 'Unique Categories in the last Hour', Value: counts.uniqueCatsLastHour.toString() },
-        { Title: 'Unique Categories in the last 24 Hours', Value: counts.uniqueCatsLast24Hours.toString() },
+        { Title: 'Unique Categories in the Last Hour', Value: counts.uniqueCatsLastHour.toString() },
+        { Title: 'Unique Categories in the Last 24 Hours', Value: counts.uniqueCatsLast24Hours.toString() },
       ];
 
       setCatCounts(catCountsArray);
