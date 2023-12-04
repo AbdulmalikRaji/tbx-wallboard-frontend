@@ -24,7 +24,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
 if(pin.X && pin.Y){ return(
             <Marker key={index} position={[pin.X, pin.Y]}>
               <Popup>
-                {pin.Barcode} <br /> Easily customizable.
+                {pin.Barcode} <br /> {pin.ProductName}
               </Popup>
             </Marker>)}
    } )}

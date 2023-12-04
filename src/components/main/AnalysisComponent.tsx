@@ -5,7 +5,7 @@ import { selectUniqueCategoryCount } from "@/store/catCountSlice";
 import { Analysis } from "@/interfaces/analysis_interface";
 
 interface AnalysisComponentProps {
-  productCounts: Analysis[]; // Define the prop here
+  productCounts: Analysis[];
 }
 
 const AnalysisComponent: React.FC<AnalysisComponentProps> = ({ productCounts }) => {
@@ -17,12 +17,6 @@ const AnalysisComponent: React.FC<AnalysisComponentProps> = ({ productCounts }) 
         {productCounts.map(analysis => (<div key={analysis.Title} className="w-full">
           <AnalysisCardComponent analysis={analysis} />
         </div>))}
-        {/* <div className="w-full">
-          <AnalysisCardComponent analysis={totalCountAnalysisSelect} />
-        </div>
-        <div className="w-full">
-          <AnalysisCardComponent analysis={categoryCount} />
-        </div> */}
       </div>
     );
   } catch (err) {
