@@ -59,8 +59,8 @@ const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts,
           return (
             <div className="mx-4"> 
               <h2 className="text-gray-700 font-bold text-xl">General Statistics</h2>
-              <div className="flex flex-row space-x-4">
-                {catCounts.map(cat => (<div key={cat.Title} className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
+              <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4">
+                {catCounts.map(cat => (<div key={cat.Title} className="w-full sm:w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
                   <p className="text-gray-700 font-bold">{cat.Title}: {cat.Value}</p>
                 </div>))}
                 {/* <div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
@@ -69,14 +69,14 @@ const TotalCatStatComponent: React.FC<TotalCatStatComponentProps> = ({catCounts,
                 <div className="w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md">
                   <p className="text-gray-700 font-bold">Total number of categories: {uniqueCategoryCount}</p>
                 </div> */}
-                <div className="relative w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md overflow-hidden">
+                <div className="relative w-full sm:w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md overflow-hidden">
                   <p className="text-gray-700 font-bold">Total % of filtered categories {totalFilteredPercentage}</p>
                   <div
                     className="h-full absolute top-0 left-0 bg-sky-600 opacity-25"
                     style={{ width: `${totalFilteredPercentage}%` }}
                   ></div>
                 </div>
-                <div className="relative w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md overflow-hidden">
+                <div className="relative w-full sm:w-1/4 p-4 rounded-md bg-gray-50 my-2 text-center drop-shadow-md overflow-hidden">
                   <p className="text-gray-700 font-bold">Total % of unfiltered categories {totalunFilteredPercentage}</p>
                   <div
                     className="h-full absolute top-0 left-0 bg-sky-600 opacity-25"

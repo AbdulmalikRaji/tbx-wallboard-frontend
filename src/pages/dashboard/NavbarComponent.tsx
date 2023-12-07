@@ -83,13 +83,6 @@ const NavbarComponent = () => {
             <ul className="py-2">
               <li className="px-4 py-2 hover:bg-gray-200">
                 <button
-                  className="bg-white text-black px-4 py-2 rounded mt-2 w-full text-left hover:bg-gray-200 transition-colors duration-300"
-                >
-                  Option
-                </button>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-200">
-                <button
                   onClick={logOut}
                   className="bg-white text-black px-4 py-2 rounded mt-2 w-full text-left hover:bg-gray-200 transition-colors duration-300"
                 >
