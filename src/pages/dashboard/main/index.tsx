@@ -37,8 +37,8 @@ const MainDashboard: React.FC = () => {
     });
     socket.on('productCounts', (counts) => {
       const productCountsArray: Analysis[] = [
-        { Title: 'Products Sent Last Hour', Value: counts.productsSentLastHour.toString() },
-        { Title: 'Products Sent Last 24 Hours', Value: counts.productsSentLast24Hours.toString() },
+        { Title: 'Products Scanned Last Hour', Value: counts.productsSentLastHour.toString() },
+        { Title: 'Products Scanned Last 24 Hours', Value: counts.productsSentLast24Hours.toString() },
       ];
       console.log(productCountsArray)
       setProductCounts(productCountsArray);
