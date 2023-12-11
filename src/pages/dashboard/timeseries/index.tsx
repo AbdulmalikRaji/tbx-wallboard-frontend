@@ -9,7 +9,7 @@ import { socket } from "@/config/socket";
 import dynamic from "next/dynamic";
 
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
-const MapComponent = dynamic(() => import('@/components/main/MapComponent'), {
+const MapComponent = dynamic(() => import('@/components/timeseries/MapComponent'), {
   ssr: false,
 });
 import { Chart } from 'react-google-charts';
