@@ -84,7 +84,7 @@ const TimeSeriesDashboard: React.FC= () => {
   useEffect(() => {
 
     socket.connect();
-    socket.on("shortPins", (newPins) => {
+    socket.on("longPins", (newPins) => {
       setLocalPins(newPins);
     });
     socket.on("productsThisSecond", (productsThisSecond) => {

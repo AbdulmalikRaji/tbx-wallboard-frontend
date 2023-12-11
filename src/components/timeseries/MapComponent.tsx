@@ -14,24 +14,20 @@ interface MapComponentProps {
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
-  const [data,setData] = useState([
-    [41.0082, 28.9784], // lat, lng, intensity
-    [41.0082, 28.9785],
-    [41.0082, 28.9786],
-    [41.0082, 28.9787],
-    [41.0082, 28.9788],
-    [41.0082, 28.9789],
-    [41.0082, 28.9790],
-  ])
+  // const [points,setPoints] = useState([
+  //   [41.0082, 28.9784], // lat, lng, intensity
+  // ])
 
   useEffect(() => {
     const map = L.map('map');
     map.setView([41.0082, 28.9784],9)
 
-    var heat = L.heatLayer( data.map((point) => {
+    var heat = L.heatLayer( pins.map((point) => {
       // Convert data point to LatLng object
-      return L.latLng(point[0], point[1]);
-    }), {radius: 25}).addTo(map);
+      return L.latLng(point.X, point.Y,15);
+    }), {radius: 50}).addTo(map);
+
+
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -44,6 +40,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
       }
     };
   },[]);
+
  
   try {
     return (
