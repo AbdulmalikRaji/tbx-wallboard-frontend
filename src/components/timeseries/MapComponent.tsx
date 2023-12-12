@@ -17,29 +17,49 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
   // const [points,setPoints] = useState([
   //   [41.0082, 28.9784], // lat, lng, intensity
   // ])
+  const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
-    const map = L.map('map');
-    map.setView([41.0082, 28.9784],9)
+    if (pins.length !== 0 && map === null) {
+      const newMap = L.map('map');
+      newMap.setView([41.0082, 28.9784], 9);
 
-    var heat = L.heatLayer( pins.map((point) => {
-      // Convert data point to LatLng object
-      return L.latLng(point.X, point.Y,15);
-    }), {radius: 50}).addTo(map);
+      const heat = L.heatLayer(
+        pins.map((point) => L.latLng(point.X, point.Y, 20)),
+        { radius: 50 }
+      ).addTo(newMap);
 
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(newMap);
 
+      setMap(newMap);
+    }
+    if (map) {
+      // Clear existing layers
+      map.eachLayer((layer:any) => {
+        if (!layer._url) {
+          map.removeLayer(layer);
+        }
+      });
+
+      // Create new heatmap layer
+      const heat = L.heatLayer(
+        pins.map((point) => L.latLng(point.X, point.Y, 20)),
+        { radius: 50 }
+      ).addTo(map);
+    }
     
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+
 
     return () => {
       // Cleanup when component unmounts
-      if (map) {
-        map.remove();
-      }
+      // if (map) {
+      //   map.remove();
+      // }
     };
-  },[]);
+  },[pins]);
+
 
  
   try {
