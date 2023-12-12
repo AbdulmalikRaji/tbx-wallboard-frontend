@@ -53,10 +53,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
 
 
     return () => {
-      // Cleanup when component unmounts
-      // if (map) {
-      //   map.remove();
-      // }
     };
   },[pins]);
 
@@ -65,7 +61,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
   try {
     return (
       <div className="h-[30rem]">
-          <div id="map" className="w-full rounded-xl" />
+          <div id="map" className="w-full rounded-xl" style={{ height: '100%' }} />
       </div>
        
         )
