@@ -58,12 +58,12 @@ const TimeSeriesDashboard: React.FC= () => {
 
 
   const [data, setData] = useState(
-    [["Time","Products per second"],
+    [["Time","Products per 3 seconds"],
     ["0",0],
    ]
     );
   const options = {
-    title: 'Number of products each second',
+    title: 'Number of products every 3 seconds',
     chartArea: { width: '65%'},
     hAxis: {
       title: 'Time',
@@ -72,7 +72,7 @@ const TimeSeriesDashboard: React.FC= () => {
       slantedTextAngle: 45, // Specify the angle of the slanted text
     },
     vAxis: {
-      title: 'Products per second',
+      title: 'Products per 3 seconds',
       viewWindow: {
         min: 0,
         max: 600,
