@@ -20,7 +20,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
   const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
-    if (pins.length !== 0 && map === null) {
+    if (map === null) {
       const newMap = L.map('map');
       newMap.setView([41.0082, 28.9784], 9);
 
@@ -34,8 +34,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ pins }) => {
       }).addTo(newMap);
 
       setMap(newMap);
-    }
-    if (map) {
+    }else {
       // Clear existing layers
       map.eachLayer((layer:any) => {
         if (!layer._url) {
