@@ -40,7 +40,6 @@ const MainDashboard: React.FC = () => {
         { Title: 'Products Scanned Last Hour', Value: counts.productsSentLastHour.toString() },
         { Title: 'Products Scanned Last 24 Hours', Value: counts.productsSentLast24Hours.toString() },
       ];
-      console.log(productCountsArray)
       setProductCounts(productCountsArray);
     });
 

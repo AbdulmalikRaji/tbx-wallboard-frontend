@@ -35,8 +35,6 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log('Email:', email);
-    console.log('Password:', password);
     if(email !== undefined && password !== undefined){
       try{
         const response = await loginService(email,password);

@@ -32,6 +32,7 @@ const StatsDashboard: React.FC = () => {
   useEffect(() => {
     socket.connect();
     socket.on("longPins", (newPins) => {
+
       setLocalPins(newPins);
     });
     socket.on("categoryCounts", (cats) => {
