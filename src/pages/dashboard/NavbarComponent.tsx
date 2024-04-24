@@ -36,7 +36,7 @@ const NavbarComponent = () => {
       <div className="flex items-center">
         <div className="flex items-center gap-4">
           <a href={'/dashboard/main'}>
-          <img src="/trendbox_logo.png" alt="Logo"  className="w-16 sm:w-36 mr-4 sm:mr-8" />
+          <img src="/active_trendbox_logo.webp" alt="Logo" className="w-16 sm:w-36 mr-4 sm:mr-8 transform scale-110" />
           </a>
           <a
             href={'/dashboard/main'}
